@@ -79,6 +79,27 @@ routes.post("/images", (req, res) => {
   );
 });
 
+routes.post("/images/getNFTS", (req, res) => {
+  let i = 0;
+  while(i<100){
+    let num = 1110 + i;
+    i++;
+    let url = `https://img-cdn.magiceden.dev/rs:fill:400:400:0:0/plain/https://bafybeiho6agkphvh3csuthjdnpw7gd3ntsbuungouybdz6ou7jzj2imv3m.ipfs.dweb.link/${num}.png?ext=png`
+  client.query(
+    `insert into images (url) values ('${url}') returning *`,
+    function (err, result) {
+      if (err) {
+        return console.error("error running query", err);
+      }
+      console.log(result);
+
+      //
+    }
+  );}
+  res.status(201).json({ info: `Registrado com sucesso` });
+
+});
+
 routes.put("/images/:id", (req, res) => {
   const { id } = req.params;
   const { url } = req.body;
