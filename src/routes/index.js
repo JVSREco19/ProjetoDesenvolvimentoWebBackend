@@ -36,21 +36,32 @@ routes.get("/images", (req, res) => {
 
 routes.get("/images/:id", (req, res) => {
   const id = req.params.id;
-  client.query(
-    `SELECT * from images where id = ${id}`,
-    function (err, result) {
-      if (err) {
-        return console.error("error running query", err);
-      }
-      console.log(result.rows);
-      res.send(result.rows).status(200);
+  client.query(`SELECT * from images where id = ${id}`, function (err, result) {
+    if (err) {
+      return console.error("error running query", err);
     }
-  );
+    console.log(result.rows);
+    res.send(result.rows).status(200);
+  });
 });
 
 routes.delete("/images/:id", (req, res) => {
   const id = req.params.id;
   client.query(`Delete from images where id = ${id}`, function (err, result) {
+    if (err) {
+      return console.error("error running query", err);
+    } else {
+      if (result.rowCount == 0) {
+        res.status(400).json({ info: "Registro não encontrado" });
+      } else {
+        res.status(200).json({ info: "Registro excluido" });
+      }
+    }
+  });
+});
+
+routes.delete("/images/DeleteAll", (req, res) => {
+  client.query(`Delete from images `, function (err, result) {
     if (err) {
       return console.error("error running query", err);
     } else {
@@ -81,23 +92,23 @@ routes.post("/images", (req, res) => {
 
 routes.post("/images/getNFTS", (req, res) => {
   let i = 0;
-  while(i<100){
+  while (i < 40) {
     let num = 1110 + i;
     i++;
-    let url = `https://img-cdn.magiceden.dev/rs:fill:400:400:0:0/plain/https://bafybeiho6agkphvh3csuthjdnpw7gd3ntsbuungouybdz6ou7jzj2imv3m.ipfs.dweb.link/${num}.png?ext=png`
-  client.query(
-    `insert into images (url) values ('${url}') returning *`,
-    function (err, result) {
-      if (err) {
-        return console.error("error running query", err);
+    let url = `https://img-cdn.magiceden.dev/rs:fill:400:400:0:0/plain/https://bafybeiho6agkphvh3csuthjdnpw7gd3ntsbuungouybdz6ou7jzj2imv3m.ipfs.dweb.link/${num}.png?ext=png`;
+    client.query(
+      `insert into images (url) values ('${url}') returning *`,
+      function (err, result) {
+        if (err) {
+          return console.error("error running query", err);
+        }
+        console.log(result);
+
+        //
       }
-      console.log(result);
-
-      //
-    }
-  );}
+    );
+  }
   res.status(201).json({ info: `Registrado com sucesso` });
-
 });
 
 routes.put("/images/:id", (req, res) => {
