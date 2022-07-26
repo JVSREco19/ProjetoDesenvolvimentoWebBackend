@@ -12,6 +12,6 @@ app.use(bodyparser.json());
 app.use("/",routes);
 
 
-app.listen(config.port, () => {
+app.listen(config.port || 8081, () => {
   console.log("Servidor funcionando na porta: " + config.port);
 });
