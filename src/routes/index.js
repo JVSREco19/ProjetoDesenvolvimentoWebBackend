@@ -94,7 +94,7 @@ routes.post("/images", (req, res) => {
 routes.post("/images/getNFTS", (req, res) => {
   let i = 0;
   while (i < 20) {
-    let num = 8910 + i;
+    let num = 6061 + i;
     i++;
     let url = `https://img-cdn.magiceden.dev/rs:fill:400:400:0:0/plain/https://bafybeiho6agkphvh3csuthjdnpw7gd3ntsbuungouybdz6ou7jzj2imv3m.ipfs.dweb.link/${num}.png?ext=png`;
     client.query(
