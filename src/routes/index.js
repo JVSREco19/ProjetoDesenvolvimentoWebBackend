@@ -133,6 +133,7 @@ routes.post("/images/getNFTS", (req, res) => {
   let i = 0,j = 0,links;
   await client.query(`select * from links`,(result)=>{
       links = result.rows
+      console.log(result)
   });
   console.log(links)
   while(j<links.length){
