@@ -137,29 +137,30 @@ routes.post("/images/getNFTS", (req, res) => {
     }
     console.log(result);
     links = result.rows
-    console.log(result)
+    console.log(links)
+    while (j < links.length) {
+      i = 0;
+
+      while (i < links[j].maiorNum) {
+        let num = links[j].menorNum + i;
+        i++;
+        let url = `https://img-cdn.magiceden.dev/rs:fill:400:400:0:0/plain/${links[j].url}/${num}.png?ext=png`;
+
+        client.query(
+          `insert into images (url) values ('${url}') returning *`,
+          function (err, result) {
+            if (err) {
+              return console.error("error running query", err);
+            }
+            console.log(result);
+          }
+        );
+      }
+      j++;
+    }
   });
   console.log(links)
-  while(j<links.length){
-    i= 0;
-    
-  while (i < links[j].maiorNum) {
-    let num = links[j].menorNum + i;
-    i++;
-    let url = `https://img-cdn.magiceden.dev/rs:fill:400:400:0:0/plain/${links[j].url}/${num}.png?ext=png`;
-    
-    client.query(
-      `insert into images (url) values ('${url}') returning *`,
-      function (err, result) {
-        if (err) {
-          return console.error("error running query", err);
-        }
-        console.log(result);
-      }
-    );
-  }
-    j++;
-}
+  
   res.status(201).json({ info: `Registrado com sucesso` });
 });
 
