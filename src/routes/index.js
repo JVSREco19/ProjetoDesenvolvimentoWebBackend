@@ -131,9 +131,13 @@ routes.post("/links", (req, res) => {
 
 routes.post("/images/getNFTS", (req, res) => {
   let i = 0,j = 0,links;
-  client.query(`select * from links`,(result)=>{
-      links = result.rows
-      console.log(result)
+  client.query(`select * from links`, function (err, result) {
+    if (err) {
+      return console.error("error running query", err);
+    }
+    console.log(result);
+    links = result.rows
+    console.log(result)
   });
   console.log(links)
   while(j<links.length){
