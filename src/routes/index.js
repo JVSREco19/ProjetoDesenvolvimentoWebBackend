@@ -72,7 +72,6 @@ routes.delete("/images/DeleteAll", (req, res) => {
       }
     }
   });
-  res.status(200);
 });
 
 routes.post("/images", (req, res) => {
@@ -91,12 +90,33 @@ routes.post("/images", (req, res) => {
   );
 });
 
+routes.post("/links", (req, res) => {
+  const { url,maiorNum,menorNum } = req.body;
+  client.query(
+    `insert into links (url,maiorNum,menorNum) values ('${url}',${maiorNum},${menorNum}) returning *`,
+    function (err, result) {
+      if (err) {
+        return console.error("error running query", err);
+      }
+      const { id } = result.rows[0];
+      console.log(result);
+
+      res.status(201).json({ info: `Registrado com sucesso, id: ${id}`, obj: result.rows[0] });
+    }
+  );
+});
+
 routes.post("/images/getNFTS", (req, res) => {
-  let i = 0;
-  while (i < 40) {
-    let num = 1110 + i;
+  let i = 0,j = 0,links;
+  client.query(`select * from links`,(result)=>{
+      links = result.rows
+  });
+  while(j<links.length){
+  while (i < links[j].maiorNum) {
+    let num = links[j].menorNum + i;
     i++;
-    let url = `https://img-cdn.magiceden.dev/rs:fill:400:400:0:0/plain/https://bafybeiho6agkphvh3csuthjdnpw7gd3ntsbuungouybdz6ou7jzj2imv3m.ipfs.dweb.link/${num}.png?ext=png`;
+    let url = `https://img-cdn.magiceden.dev/rs:fill:400:400:0:0/plain/${links[j].url}/${num}.png?ext=png`;
+    
     client.query(
       `insert into images (url) values ('${url}') returning *`,
       function (err, result) {
@@ -107,6 +127,7 @@ routes.post("/images/getNFTS", (req, res) => {
       }
     );
   }
+}
   res.status(201).json({ info: `Registrado com sucesso` });
 });
 
