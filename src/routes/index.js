@@ -3,7 +3,7 @@ var pg = require("pg");
 const config = require("../../config");
 var conString = config.urlConnection;
 const routes = express.Router();
-var links;
+var links = [];
 
 var client = new pg.Client(conString);
 client.connect(function (err) {
@@ -133,7 +133,7 @@ routes.post("/images/getNFTS", (req, res) => {
     console.log(links)
     while (j < links.length) {
       i = 0;
-
+      
       while (i < links[j].maiorNum) {
         let num = links[j].menorNum + i;
         i++;
