@@ -131,7 +131,7 @@ routes.post("/links", (req, res) => {
 
 routes.post("/images/getNFTS", (req, res) => {
   let i = 0,j = 0,links;
-  await client.query(`select * from links`,(result)=>{
+  client.query(`select * from links`,(result)=>{
       links = result.rows
       console.log(result)
   });
