@@ -126,7 +126,7 @@ routes.post("/links", (req, res) => {
 });
 
 async function addImgsFromSite(url){
-  client.query(
+  await client.query(
     `insert into images (url) values ('${url}') returning *`,
     function (err, result) {
       if (err) {
@@ -149,7 +149,7 @@ routes.post("/images/getNFTS", (req, res) => {
          console.log(num);
         i++;
         let url = `https://img-cdn.magiceden.dev/rs:fill:400:400:0:0/plain/${links[j].url}/${num}.png?ext=png`;
-        await addImgsFromSite(url);
+        addImgsFromSite(url);
         
       }
       j++;
