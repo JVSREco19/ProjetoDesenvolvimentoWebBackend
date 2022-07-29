@@ -113,10 +113,10 @@ routes.post("/images", (req, res) => {
 routes.post("/links", (req, res) => {
   const { url,maiorNum,menorNum } = req.body;
   client.query(
-    `insert into links (url,maiornum,menornum) values ('${url}',${maiorNum},${menorNum}) returning *`,
+    `insert into links(url,maiornum,menornum) values ('${url}',${maiorNum},${menorNum}) returning *`,
     function (err, result) {
       if (err) {
-        return console.error("error running query", err);
+        res.json({error: err})
       }
       const { id } = result.rows[0];
       console.log(result);
