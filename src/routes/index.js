@@ -86,11 +86,8 @@ routes.delete("/images/DeleteAll/", (req, res) => {
     if (err) {
       return console.error("error running query", err);
     } else {
-      if (result.rowCount == 0) {
-        res.status(400).json({ info: "Registro não encontrado" });
-      } else {
-        res.status(200).json({ info: "Registro excluido" });
-      }
+      
+        res.status(200).json({ info: "Registros excluidos" });
     }
   });
 });
