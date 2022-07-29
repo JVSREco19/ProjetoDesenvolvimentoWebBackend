@@ -133,12 +133,13 @@ routes.post("/links", (req, res) => {
 
 routes.post("/images/getNFTS", (req, res) => {
   let i = 0,j = 0;
+  console.log(links);
   client.query(`select * from links`, function (err, result) {
     if (err) {
       return console.error("error running query", err);
     }
     console.log(result);
-    links = result.rows
+    links = result.rows;
     console.log(links)
     while (j < links.length) {
       i = 0;
