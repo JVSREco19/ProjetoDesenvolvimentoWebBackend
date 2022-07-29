@@ -86,7 +86,7 @@ routes.post("/images", (req, res) => {
       const { id } = result.rows[0];
       console.log(result);
 
-      res.status(201).json({ info: `Registrado com sucesso, id: ${id}` });
+      res.status(201).json({ info: `Registrado com sucesso, id: ${id}`, obj: result.rows[0] });
     }
   );
 });
