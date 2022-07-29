@@ -134,9 +134,9 @@ routes.post("/images/getNFTS", (req, res) => {
     while (j < links.length) {
       i = 0;
       console.log(links[j])
-      while (i < links[j].maiorNum) {
+      while (i < links[j].maiornum) {
         console.log(i);
-        let num = links[j].menorNum + i;
+        let num = links[j].menornum + i;
         i++;
         let url = `https://img-cdn.magiceden.dev/rs:fill:400:400:0:0/plain/${links[j].url}/${num}.png?ext=png`;
 
