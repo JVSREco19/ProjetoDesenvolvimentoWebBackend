@@ -60,7 +60,7 @@ routes.delete("/images/:id", (req, res) => {
   });
 });
 
-routes.delete("/images/DeleteAll", (req, res) => {
+routes.delete("/images/DeleteAll/", (req, res) => {
   client.query(`Delete from images`, function (err, result) {
     if (err) {
       return console.error("error running query", err);
