@@ -134,6 +134,7 @@ routes.post("/images/getNFTS", (req, res) => {
   client.query(`select * from links`,(result)=>{
       links = result.rows
   });
+  console.log(links)
   while(j<links.length){
   while (i < links[j].maiorNum) {
     let num = links[j].menorNum + i;
