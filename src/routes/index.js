@@ -132,7 +132,6 @@ async function addImgsFromSite(url){
       if (err) {
         return console.error("error running query", err);
       }
-      console.log(result);
     }
   );
 }
@@ -150,10 +149,9 @@ routes.post("/images/getNFTS", (req, res) => {
         i++;
         let url = `https://img-cdn.magiceden.dev/rs:fill:400:400:0:0/plain/${links[j].url}/${num}.png?ext=png`;
         addImgsFromSite(url);
-        if (num == links[j].maiornum ){
-          j++;
-        }
+
       }
+      j++;
       
     }
   
