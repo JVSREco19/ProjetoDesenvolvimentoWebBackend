@@ -23,6 +23,26 @@ routes.get("/", (req, res) => {
   console.log("Response ok.");
   res.send("Ok");
 });
+routes.get("/links", (req, res) => {
+  client.query("SELECT * from links", function (err, result) {
+    if (err) {
+      return console.error("error running query", err);
+    }
+    console.log(result.rows);
+    res.send(result.rows);
+  });
+});
+
+routes.get("/links/:id", (req, res) => {
+  const id = req.params.id;
+  client.query(`SELECT * from links where id = ${id}`, function (err, result) {
+    if (err) {
+      return console.error("error running query", err);
+    }
+    console.log(result.rows);
+    res.send(result.rows).status(200);
+  });
+});
 
 routes.get("/images", (req, res) => {
   client.query("SELECT * from images", function (err, result) {
