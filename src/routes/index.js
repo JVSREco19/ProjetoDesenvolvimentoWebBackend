@@ -131,7 +131,7 @@ routes.post("/links", (req, res) => {
 routes.post("/images/getNFTS", (req, res) => {
   let i = 0,j = 0;
     console.log(links.length)
-    while (j < links.length()) {
+    while (j < links.length) {
       i = 0;
       
       while (i < links[j].maiorNum) {
