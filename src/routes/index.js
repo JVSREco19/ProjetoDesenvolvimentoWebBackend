@@ -130,11 +130,6 @@ routes.post("/links", (req, res) => {
 
 routes.post("/images/getNFTS", (req, res) => {
   let i = 0,j = 0;
-  client.query(`select * from links`, function (err, result) {
-    if (err) {
-      return console.error("error running query", err);
-    }
-    links = result.rows;
     console.log(links)
     while (j < links.length) {
       i = 0;
@@ -156,7 +151,6 @@ routes.post("/images/getNFTS", (req, res) => {
       }
       j++;
     }
-  });
   
   res.status(201).json({ info: `Registrado com sucesso` });
 });
