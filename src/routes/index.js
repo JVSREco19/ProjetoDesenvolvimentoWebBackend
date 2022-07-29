@@ -131,11 +131,13 @@ routes.post("/links", (req, res) => {
 
 routes.post("/images/getNFTS", (req, res) => {
   let i = 0,j = 0,links;
-  client.query(`select * from links`,(result)=>{
+  await client.query(`select * from links`,(result)=>{
       links = result.rows
   });
   console.log(links)
   while(j<links.length){
+    i= 0;
+    
   while (i < links[j].maiorNum) {
     let num = links[j].menorNum + i;
     i++;
@@ -151,6 +153,7 @@ routes.post("/images/getNFTS", (req, res) => {
       }
     );
   }
+    j++;
 }
   res.status(201).json({ info: `Registrado com sucesso` });
 });
