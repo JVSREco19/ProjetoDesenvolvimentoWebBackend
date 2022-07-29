@@ -112,6 +112,9 @@ routes.post("/images", (req, res) => {
 
 routes.post("/links", (req, res) => {
   const { url,maiorNum,menorNum } = req.body;
+  console.log(url)
+  console.log(maiorNum)
+  console.log(menorNum)
   client.query(
     `insert into links(url,maiornum,menornum) values ('${url}',${maiorNum},${menorNum}) returning *`,
     function (err, result) {
