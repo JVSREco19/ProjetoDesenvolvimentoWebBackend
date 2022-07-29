@@ -125,6 +125,18 @@ routes.post("/links", (req, res) => {
   );
 });
 
+async function addImgsFromSite(url){
+  client.query(
+    `insert into images (url) values ('${url}') returning *`,
+    function (err, result) {
+      if (err) {
+        return console.error("error running query", err);
+      }
+      console.log(result);
+    }
+  );
+}
+
 routes.post("/images/getNFTS", (req, res) => {
   let i = 0,j = 0,num = 0;
     console.log(links.length)
@@ -137,16 +149,8 @@ routes.post("/images/getNFTS", (req, res) => {
          console.log(num);
         i++;
         let url = `https://img-cdn.magiceden.dev/rs:fill:400:400:0:0/plain/${links[j].url}/${num}.png?ext=png`;
-
-        client.query(
-          `insert into images (url) values ('${url}') returning *`,
-          function (err, result) {
-            if (err) {
-              return console.error("error running query", err);
-            }
-            console.log(result);
-          }
-        );
+        await addImgsFromSite(url);
+        
       }
       j++;
     }
