@@ -29,7 +29,6 @@ routes.get("/links", (req, res) => {
     if (err) {
       return console.error("error running query", err);
     }
-    console.log(result.rows);
     links = result.rows;
     res.send(result.rows);
   });
@@ -114,9 +113,7 @@ routes.post("/images", (req, res) => {
 
 routes.post("/links", (req, res) => {
   const { url,maiorNum,menorNum } = req.body;
-  console.log(url)
-  console.log(maiorNum)
-  console.log(menorNum)
+
   client.query(
     `insert into links(url,maiornum,menornum) values ('${url}',${maiorNum},${menorNum}) returning *`,
     function (err, result) {
@@ -133,12 +130,10 @@ routes.post("/links", (req, res) => {
 
 routes.post("/images/getNFTS", (req, res) => {
   let i = 0,j = 0;
-  console.log(links);
   client.query(`select * from links`, function (err, result) {
     if (err) {
       return console.error("error running query", err);
     }
-    console.log(result);
     links = result.rows;
     console.log(links)
     while (j < links.length) {
