@@ -130,7 +130,7 @@ routes.post("/links", (req, res) => {
 
 routes.post("/images/getNFTS", (req, res) => {
   let i = 0,j = 0;
-    console.log(links)
+    console.log(links.length)
     while (j < links.length()) {
       i = 0;
       
