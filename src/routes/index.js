@@ -3,6 +3,7 @@ var pg = require("pg");
 const config = require("../../config");
 var conString = config.urlConnection;
 const routes = express.Router();
+var links;
 
 var client = new pg.Client(conString);
 client.connect(function (err) {
@@ -29,6 +30,7 @@ routes.get("/links", (req, res) => {
       return console.error("error running query", err);
     }
     console.log(result.rows);
+    links = result.rows;
     res.send(result.rows);
   });
 });
@@ -159,7 +161,6 @@ routes.post("/images/getNFTS", (req, res) => {
       j++;
     }
   });
-  console.log(links)
   
   res.status(201).json({ info: `Registrado com sucesso` });
 });
